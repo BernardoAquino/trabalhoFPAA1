@@ -1,0 +1,37 @@
+Algoritmo Guloso Baseado:
+https://en.wikipedia.org/wiki/Partition_problem
+https://en.wikipedia.org/wiki/Greedy_number_partitioning
+https://stackoverflow.com/questions/19197836/algorithm-to-evenly-distribute-values-into-containers
+problema da partição
+problema da partição algoritmo guloso
+The partition problem greedy algorithm
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Objetivo - Distribuir as rotas entre os caminhões de maneira a minimizar a diferença de quilometragem total rodada entre eles. 
+
+**Dúvida: O problema é que um caminhão pode receber várias rotas e pode ocasionar de ser rotas de longa distância?
+**Dúvida: Diferença de quilometragem total é a média individual comparada a média total?
+
+
+
+
+Algoritmo 2:
+
+Array(365 posições) - Temperatura máxima em uma área polar
+ 
+Objetivos
+- Para cada ano, qual foi o período em que houve o maior acúmulo de temperatura
+- Verificar todo ano se teve conincidência deste período
+- Por último, é necessário saber o mesmo dado considerando todos os anos representados.
+
+
+**Dúvida: Quanto tempo(dias) considerar no período?
+**Dúvida: Conincidência somente do período do ano anterior? (Exemplo: Período mais quente de 2020, 2021 deve validar se teve coincidência. Porém, 2022 deve validar somente com o período de 2021.)
+**Dúvida: Por último, é necessário saber o mesmo dado considerando todos os anos representados. (Mesmo dado = Período em anos que teve maior acúmulo de temperatura?)
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sempre comparar linha atual com anterior de rotas(ver se a diferença aumenta ou diminui)
+Coincidência se for o mesmo período/mesmo mês
+Analisar o período mais quente considerando todos os anos (atravessando os anos)
