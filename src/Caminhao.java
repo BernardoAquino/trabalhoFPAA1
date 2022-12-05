@@ -34,9 +34,13 @@ public class Caminhao {
         return this.soma;
     }
 
-    public void getRotas() {
-        for (Rota rota : this.rotas) {
-            System.out.println(rota.toString());
+    public List<Rota> getRotas() {
+        return this.rotas;
+    }
+
+    public void imprimeRotas() {
+        for (Rota rota : rotas) {
+            System.out.println(rota);
         }
     }
 
