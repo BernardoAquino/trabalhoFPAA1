@@ -180,7 +180,7 @@ public class AppDivisaoConquista {
         /**
          * lê o arquivo e passa para um array
          */
-        Arquivo arquivo = new Arquivo("C:/Users/Bernardo/Desktop/trabalhoFPAA1/src/dados/");
+        Arquivo arquivo = new Arquivo("");
 
         // Alterar fileName
         String fileName = "t.txt";
