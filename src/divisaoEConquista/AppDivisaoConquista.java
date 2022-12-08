@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AppDivisaoConquista {
@@ -15,6 +14,7 @@ public class AppDivisaoConquista {
     public static int[] periodo;
 
     public static int[] maxCrossing(int[] nums, int low, int mid, int high) {
+        // Inclui os elementos à esquerda do meio
         int sum = 0;
         int leftSum = Integer.MIN_VALUE;
         int maxLeftIndex = -1;
@@ -27,6 +27,7 @@ public class AppDivisaoConquista {
             }
         }
 
+        // Inclui os elementos à direita do meio
         sum = 0;
         int rightSum = Integer.MIN_VALUE;
         int maxRightIndex = -1;
@@ -38,15 +39,30 @@ public class AppDivisaoConquista {
                 maxRightIndex = i;
             }
         }
+
+        /**
+         * Retorna a soma dos elementos da esquerda e da direita do meio
+         */
         return new int[] { maxLeftIndex, maxRightIndex, leftSum + rightSum };
     }
 
     public static int[] maxSubArray(int[] nums, int low, int high) {
+        // Caso base(Apenas 1 elemento)
         if (low == high)
             return new int[] { low, high, nums[low] };
 
+        // Acha o meio
         int mid = (low + high) / 2;
 
+        /**
+         * Após isso, retorna-se o subArray com valor máximo da seguinte árvore:
+         * 
+         * • subArray com soma máxima na metade da esquerda
+         * • subArray com soma máxima na metade da direita
+         * • subArray com soma máxima de modo que o subArray ultrapasse/cruze o ponto
+         * médio
+         * 
+         */
         int[] leftResults = maxSubArray(nums, low, mid);
         int[] rightResults = maxSubArray(nums, mid + 1, high);
         int[] crossResults = maxCrossing(nums, low, mid, high);
@@ -76,11 +92,11 @@ public class AppDivisaoConquista {
         if (tempAnterior == null) {
             return 0;
         }
-        
+
         return tempAtual - tempAnterior;
     }
 
-    public static ArrayList<int[]> temperaturaAbsolutaToVariacao(ArrayList<int[]> tempAnosAtual){
+    public static ArrayList<int[]> temperaturaAbsolutaToVariacao(ArrayList<int[]> tempAnosAtual) {
         ArrayList<int[]> tempAnosVariacao = new ArrayList<>();
 
         for (int[] tempAno : tempAnosAtual) {
@@ -106,11 +122,11 @@ public class AppDivisaoConquista {
         }
 
         List<Integer> diasIntersecaoList = dias1.stream()
-            .distinct()
-            .filter(dias2::contains)
-            .collect(Collectors.toList());
+                .distinct()
+                .filter(dias2::contains)
+                .collect(Collectors.toList());
         int[] diasIntersecaoArray = new int[diasIntersecaoList.size()];
-        
+
         int i = 0;
         for (Integer dia : diasIntersecaoList) {
             diasIntersecaoArray[i] = dia;
@@ -118,18 +134,18 @@ public class AppDivisaoConquista {
         }
         return diasIntersecaoArray;
 
-
     }
 
     public static void verificarCoincidencia(ArrayList<int[]> r) {
         for (int i = 0; i < r.size(); i++) {
             for (int j = 1 + i; j < r.size(); j++) {
-                System.out.println("Coincidencias entre os anos " + (i + 1) + " e " + (j + 1) + ": " + Arrays.toString(diasCoincidem(r.get(i), r.get(j))));
+                System.out.println("Coincidencias entre os anos " + (i + 1) + " e " + (j + 1) + ": "
+                        + Arrays.toString(diasCoincidem(r.get(i), r.get(j))));
             }
         }
     }
 
-    public static int[] runDivisaoConquista(int[] nums){
+    public static int[] runDivisaoConquista(int[] nums) {
         int[] result = new int[3];
         maxSubArray(nums, 0, nums.length - 1);
         System.out.println(Arrays.toString(periodo));
@@ -141,40 +157,39 @@ public class AppDivisaoConquista {
         result[2] = inicio;
         return result;
     }
-    
+
     private static int[] agruparLinhas(ArrayList<int[]> tempAnosVariacao) {
         ArrayList<Integer> tempAnosVariacaoAgrupada = new ArrayList<Integer>();
-        
+
         for (int[] i : tempAnosVariacao) {
             for (int j : i) {
                 tempAnosVariacaoAgrupada.add(j);
             }
         }
-    
+
         int[] tempAnosVariacaoAgrupadaArray = new int[tempAnosVariacaoAgrupada.size()];
-        
+
         for (int i = 0; i < tempAnosVariacaoAgrupada.size(); i++) {
-            tempAnosVariacaoAgrupadaArray[i] = tempAnosVariacaoAgrupada.get(i);    
+            tempAnosVariacaoAgrupadaArray[i] = tempAnosVariacaoAgrupada.get(i);
         }
-        
+
         return tempAnosVariacaoAgrupadaArray;
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-    /**
+        /**
          * lê o arquivo e passa para um array
          */
-        Arquivo arquivo = new Arquivo("/home/gustavocn/Desktop/fpaa/trabalhoFPAA1/src/dados/");
+        Arquivo arquivo = new Arquivo("C:/Users/Bernardo/Desktop/trabalhoFPAA1/src/dados/");
 
         // Alterar fileName
         String fileName = "t.txt";
-        //String fileName = "temperaturas.txt";
-        
-        List<List<Integer>> tempAnosList = arquivo.lerArquivo(fileName);   
+        // String fileName = "temperaturas.txt";
 
+        List<List<Integer>> tempAnosList = arquivo.lerArquivo(fileName);
 
         ArrayList<int[]> tempAnos = new ArrayList<>();
-        
+
         for (List<Integer> list : tempAnosList) {
             int[] tempAno = new int[list.size()];
             for (int i = 0; i < list.size(); i++) {
@@ -182,52 +197,54 @@ public class AppDivisaoConquista {
             }
             tempAnos.add(tempAno);
         }
-        
+
         /**
-         * Passar os dados de temperatura para a diferença 
+         * Passar os dados de temperatura para a diferença
          * exemplo: 64, 69, 21 -> 5, 48, 48
          * Considerar diferencas negativas??????????
          * exemplo: 64, 69, 21 -> 5, 48, -48
-         * -> nao funciona pq os resultados vao considerar todos os dias do ano uma vez q a variação e sempre positiva
+         * -> nao funciona pq os resultados vao considerar todos os dias do ano uma vez
+         * q a variação e sempre positiva
          * 
-Exemplo:
-[64, 69, 21]
-[1, 364, 943]
-Início[Posição/Dia]: 2
-Fim[Posição/Dia]: 365
-Soma: 943
-
-[1, 364, 867]
-Início[Posição/Dia]: 2
-Fim[Posição/Dia]: 365
-Soma: 867
-
-[1, 364, 875]
-Início[Posição/Dia]: 2
-Fim[Posição/Dia]: 365
-Soma: 875
-
-[1, 363, 918]
-Início[Posição/Dia]: 2
-Fim[Posição/Dia]: 364
-Soma: 918
-
-[1, 364, 900]
-Início[Posição/Dia]: 2
-Fim[Posição/Dia]: 365
-Soma: 900
+         * Exemplo:
+         * [64, 69, 21]
+         * [1, 364, 943]
+         * Início[Posição/Dia]: 2
+         * Fim[Posição/Dia]: 365
+         * Soma: 943
+         * 
+         * [1, 364, 867]
+         * Início[Posição/Dia]: 2
+         * Fim[Posição/Dia]: 365
+         * Soma: 867
+         * 
+         * [1, 364, 875]
+         * Início[Posição/Dia]: 2
+         * Fim[Posição/Dia]: 365
+         * Soma: 875
+         * 
+         * [1, 363, 918]
+         * Início[Posição/Dia]: 2
+         * Fim[Posição/Dia]: 364
+         * Soma: 918
+         * 
+         * [1, 364, 900]
+         * Início[Posição/Dia]: 2
+         * Fim[Posição/Dia]: 365
+         * Soma: 900
          */
-        //  ArrayList<int[]> tempAnosVariacao = temperaturaAbsolutaToVariacao(tempAnos);
+        // ArrayList<int[]> tempAnosVariacao = temperaturaAbsolutaToVariacao(tempAnos);
         ArrayList<int[]> tempAnosVariacao = tempAnos;
-        // Result Lista -> List< [inicio, fim, soma] , [inicio, fim, soma] , [inicio, fim, soma] , [inicio, fim, soma] >   ([]== ano)
-        
+        // Result Lista -> List< [inicio, fim, soma] , [inicio, fim, soma] , [inicio,
+        // fim, soma] , [inicio, fim, soma] > ([]== ano)
+
         ArrayList<int[]> results = new ArrayList<>();
         /**
          * Armazenar o Início, Fim e Soma de cada um dos anos(linhas)
          */
         System.out.println("--------------------------------------------------------------------------\n");
         System.out.println("\nSeparado por ano: \n");
-        
+
         for (int[] nums : tempAnosVariacao) {
             int[] result = runDivisaoConquista(nums);
             results.add(result);
@@ -242,12 +259,12 @@ Soma: 900
          * 68
          */
 
-         // Printa coincidências
+        // Printa coincidências
         verificarCoincidencia(results);
 
         /**
-        *   Agrupar as linhas da tabela em uma só e rodar novamente o código
-        */
+         * Agrupar as linhas da tabela em uma só e rodar novamente o código
+         */
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("\nAgrupando os anos: \n");
         int[] tempAnosAgrupado = agruparLinhas(tempAnosVariacao);

@@ -22,7 +22,7 @@ public class AppProgDinam {
 
         // Inicialização
         M[0][0] = values[0];
-        // Calcula soma anteriores
+        // Calcula soma cumulativa
         for (int i = 1; i < n; i++) {
             M[i][0] = values[i] + M[i - 1][0];
         }
@@ -78,9 +78,9 @@ public class AppProgDinam {
          * Arquivos de teste/leitura
          */
         Arquivo arquivo = new Arquivo();
-        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
+        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
         // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_disperso");
-        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
+        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
 
         /**
          * Preenchimento do número de caminhões, criação da lista de rotas e início da
@@ -113,7 +113,7 @@ public class AppProgDinam {
             System.out.println();
         }
         System.out.println(reconstructPartition(rotas, tabela, numeroCaminhoes)); // Listar valor máximo e mínimo
-                                                                             // também(Armazenar isso em uma variável)
+        // também(Armazenar isso em uma variável)
 
         // Valores máximos e mínimos
 

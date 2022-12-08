@@ -16,9 +16,9 @@ public class AppGuloso {
          * Arquivos de teste/leitura
          */
         Arquivo arquivo = new Arquivo();
-        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
+        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
         // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_disperso");
-        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
+        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
 
         /**
          * Preenchimento do número de caminhões, criação da lista de rotas e início da

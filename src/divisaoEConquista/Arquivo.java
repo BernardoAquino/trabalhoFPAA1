@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class Arquivo {
     private static final String COMMA_DELIMITER = ";";
     private String PATH; // Caminho absoluto do
-                                           // arquivo(Arruma para
-                                           // relativo)
+                         // arquivo(Arruma para
+                         // relativo)
 
-    public Arquivo(String fullPath){
+    public Arquivo(String fullPath) {
         this.PATH = fullPath;
     }
 

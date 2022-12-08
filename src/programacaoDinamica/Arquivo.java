@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class Arquivo {
     private static final String COMMA_DELIMITER = ";";
-    private static final String PATH = "/home/gustavocn/Desktop/fpaa/trabalhoFPAA1/src/dados/"; // Caminho absoluto do
-                                           // arquivo(Arruma para
-                                           // relativo)
+    private static final String PATH = ""; // Caminho absoluto do
+    // arquivo(Arruma para
+    // relativo)
 
     public List<List<Integer>> lerArquivo(String fileName) throws FileNotFoundException, IOException {
         List<List<Integer>> records = new ArrayList<>();
