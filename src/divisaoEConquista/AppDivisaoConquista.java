@@ -148,6 +148,7 @@ public class AppDivisaoConquista {
     public static int[] runDivisaoConquista(int[] nums) {
         int[] result = new int[3];
         maxSubArray(nums, 0, nums.length - 1);
+        System.out.println("\n");
         System.out.println(Arrays.toString(periodo));
         System.out.println("Início[Posição/Dia]: " + inicio);
         result[0] = inicio;
@@ -180,15 +181,17 @@ public class AppDivisaoConquista {
         /**
          * lê o arquivo e passa para um array
          */
-        Arquivo arquivo = new Arquivo("");
+        Arquivo arquivo = new Arquivo("/home/gustavocn/Desktop/fpaa/trabalhoFPAA1/src/dados/");
 
         // Alterar fileName
-        String fileName = "t.txt";
-        // String fileName = "temperaturas.txt";
+        String fileName = "temperaturas.txt";
 
         List<List<Integer>> tempAnosList = arquivo.lerArquivo(fileName);
 
         ArrayList<int[]> tempAnos = new ArrayList<>();
+
+        long startTime = System.currentTimeMillis();
+
 
         for (List<Integer> list : tempAnosList) {
             int[] tempAno = new int[list.size()];
@@ -198,43 +201,8 @@ public class AppDivisaoConquista {
             tempAnos.add(tempAno);
         }
 
-        /**
-         * Passar os dados de temperatura para a diferença
-         * exemplo: 64, 69, 21 -> 5, 48, 48
-         * Considerar diferencas negativas??????????
-         * exemplo: 64, 69, 21 -> 5, 48, -48
-         * -> nao funciona pq os resultados vao considerar todos os dias do ano uma vez
-         * q a variação e sempre positiva
-         * 
-         * Exemplo:
-         * [64, 69, 21]
-         * [1, 364, 943]
-         * Início[Posição/Dia]: 2
-         * Fim[Posição/Dia]: 365
-         * Soma: 943
-         * 
-         * [1, 364, 867]
-         * Início[Posição/Dia]: 2
-         * Fim[Posição/Dia]: 365
-         * Soma: 867
-         * 
-         * [1, 364, 875]
-         * Início[Posição/Dia]: 2
-         * Fim[Posição/Dia]: 365
-         * Soma: 875
-         * 
-         * [1, 363, 918]
-         * Início[Posição/Dia]: 2
-         * Fim[Posição/Dia]: 364
-         * Soma: 918
-         * 
-         * [1, 364, 900]
-         * Início[Posição/Dia]: 2
-         * Fim[Posição/Dia]: 365
-         * Soma: 900
-         */
-        // ArrayList<int[]> tempAnosVariacao = temperaturaAbsolutaToVariacao(tempAnos);
-        ArrayList<int[]> tempAnosVariacao = tempAnos;
+
+        ArrayList<int[]> tempAnosVariacao = temperaturaAbsolutaToVariacao(tempAnos);
         // Result Lista -> List< [inicio, fim, soma] , [inicio, fim, soma] , [inicio,
         // fim, soma] , [inicio, fim, soma] > ([]== ano)
 
@@ -269,6 +237,10 @@ public class AppDivisaoConquista {
         System.out.println("\nAgrupando os anos: \n");
         int[] tempAnosAgrupado = agruparLinhas(tempAnosVariacao);
         int[] result = runDivisaoConquista(tempAnosAgrupado);
+
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("Tempo de execução: " + totalTime + "ms");
     }
 
 }

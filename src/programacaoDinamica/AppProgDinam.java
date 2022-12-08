@@ -30,6 +30,7 @@ public class AppProgDinam {
         for (int i = 1; i < k; i++) {
             M[0][i] = values[0];
         }
+        
 
         // Preenche o restante
         for (int i = 1; i < n; i++) {
@@ -47,6 +48,18 @@ public class AppProgDinam {
                 D[i - 1][j - 1] = minx;
             }
         }
+        
+        // imprime matriz
+        for (int i = 0; i < M.length; i++) {
+            for (int j = 0; j < M[i].length; j++) {
+                String celula = String.valueOf(M[i][j]);
+                System.out.print(String.format("%5s", celula));
+
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------------------------------------------------------------");
+
         return D;
     }
 
@@ -103,18 +116,10 @@ public class AppProgDinam {
         int[] rotas = rotasPreencher.stream().mapToInt(i -> i).toArray();
         int[][] tabela = partition(rotas, numeroCaminhoes);
 
-        // Imprimir tabela
-        for (int i = 0; i < tabela.length; i++) {
-            for (int j = 0; j < tabela[i].length; j++) {
-                String celula = String.valueOf(tabela[i][j]);
-                System.out.print(String.format("%5s", celula));
-
-            }
-            System.out.println();
+        List<List<Integer>> result = reconstructPartition(rotas, tabela, numeroCaminhoes); 
+        for (int j = 0; j < result.size(); j++) {
+            System.out.println("Caminhão " + (j + 1) + ": " + result.get(j) + "\tSoma: " + result.get(j).stream().mapToInt(i -> i).sum());
         }
-        System.out.println(reconstructPartition(rotas, tabela, numeroCaminhoes)); // Listar valor máximo e mínimo
-        // também(Armazenar isso em uma variável)
-
         // Valores máximos e mínimos
 
         // Cronometragem
