@@ -77,10 +77,6 @@ public class AppDivisaoConquista {
             return 0;
         }
         
-        if (tempAnterior > tempAtual) {
-            return tempAnterior - tempAtual;
-        }
-        
         return tempAtual - tempAnterior;
     }
 
