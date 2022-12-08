@@ -1,3 +1,5 @@
+package algoritmoGuloso;
+
 import java.util.Comparator;
 
 /**

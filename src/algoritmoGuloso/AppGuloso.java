@@ -1,3 +1,5 @@
+package algoritmoGuloso;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -8,15 +10,15 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class App {
+public class AppGuloso {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         /**
          * Arquivos de teste/leitura
          */
         Arquivo arquivo = new Arquivo();
-        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
+        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_compacto");
         // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_disperso");
-        // List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
+        List<List<Integer>> dados = arquivo.lerArquivo("caminhoes_longo");
 
         /**
          * Preenchimento do número de caminhões, criação da lista de rotas e início da

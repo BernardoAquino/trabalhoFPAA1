@@ -1,3 +1,5 @@
+package algoritmoGuloso;
+
 public class Rota {
     private int id;
     private int distancia;

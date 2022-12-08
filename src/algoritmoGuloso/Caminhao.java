@@ -1,3 +1,5 @@
+package algoritmoGuloso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,13 +36,9 @@ public class Caminhao {
         return this.soma;
     }
 
-    public List<Rota> getRotas() {
-        return this.rotas;
-    }
-
-    public void imprimeRotas() {
-        for (Rota rota : rotas) {
-            System.out.println(rota);
+    public void getRotas() {
+        for (Rota rota : this.rotas) {
+            System.out.println(rota.toString());
         }
     }
 
