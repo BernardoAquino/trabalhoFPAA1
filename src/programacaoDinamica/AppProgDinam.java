@@ -98,7 +98,7 @@ public class AppProgDinam {
         }
         System.out.println("Número de caminhões: " + numeroCaminhoes);
         System.out.println("Rotas Utilizadas: " + rotasPreencher);
-        System.out.println("-----------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------");
 
         int[] rotas = rotasPreencher.stream().mapToInt(i -> i).toArray();
         int[][] tabela = partition(rotas, numeroCaminhoes);
@@ -106,7 +106,9 @@ public class AppProgDinam {
         // Imprimir tabela
         for (int i = 0; i < tabela.length; i++) {
             for (int j = 0; j < tabela[i].length; j++) {
-                System.out.print(tabela[i][j] + " ");
+                String celula = String.valueOf(tabela[i][j]);
+                System.out.print(String.format("%5s", celula));
+
             }
             System.out.println();
         }

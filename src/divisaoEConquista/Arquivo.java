@@ -11,14 +11,18 @@ import java.util.stream.Collectors;
 
 public class Arquivo {
     private static final String COMMA_DELIMITER = ";";
-    private static final String PATH = "/home/gustavocn/Desktop/fpaa/trabalhoFPAA1/src/dados/caminhoes_longo.txt"; // Caminho absoluto do
+    private String PATH; // Caminho absoluto do
                                            // arquivo(Arruma para
                                            // relativo)
+
+    public Arquivo(String fullPath){
+        this.PATH = fullPath;
+    }
 
     public List<List<Integer>> lerArquivo(String fileName) throws FileNotFoundException, IOException {
         List<List<Integer>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(
-                new FileReader(PATH + fileName + ".txt"))) {
+                new FileReader(this.PATH + fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
                 List<Integer> values = Arrays.stream(line.split(COMMA_DELIMITER)).map(Integer::parseInt)

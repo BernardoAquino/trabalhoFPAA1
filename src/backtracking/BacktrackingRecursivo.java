@@ -12,32 +12,8 @@ public class BacktrackingRecursivo {
     private static int qtd_caminhao = 3;
     private static Stack<Caminhao[]> solucoes = new Stack<Caminhao[]>();
     private static Caminhao[] melhorSolucao = new Caminhao[qtd_caminhao];
-    /*
-     * selecionar 3 rotas -> 1 para cada caminhao
 
-    --Recursividade
-    --
-    selecionar proxima rota
-
-    para cada caminhao 
-        colocar rota
-        adicionar solucao à pilha
-    se existir rota candidata
-        Recursividade(desempilhar)
-    senao
-        guardar melhor solucao
-        se pilha.vazia
-
-
-    1 2 3 4 5
-
-            1   2   3
-        5 2 3   132 123
-    123 123 123    
-
-     */
-
-    public static Double mediaDoDesvioDaMedia(Caminhao[] caminhoes) {
+   public static Double desvioPadrao(Caminhao[] caminhoes) {
         Double media = 0.0;
         for (Caminhao c : caminhoes) {
             media += c.getTotalKm();
@@ -48,9 +24,38 @@ public class BacktrackingRecursivo {
         for (Caminhao c : caminhoes) {
             desvioMedio += Math.abs(c.getTotalKm() - media);
         }
-        desvioMedio = desvioMedio / caminhoes.length;
+        //desvioMedio = desvioMedio / caminhoes.length;
         return desvioMedio;
     }
+/** 
+ *  Chama desvio padrao mas retorna a diferenca entre os extremos (para teste)
+    public static Double desvioPadrao(Caminhao[] caminhoes) {
+        // min totalKm()
+        int minKm = caminhoes[0].getTotalKm();
+        Caminhao minCaminhao = caminhoes[0];
+        
+        for (Caminhao c : caminhoes) {
+            if (c.getTotalKm() < minKm) {
+                minKm = c.getTotalKm();
+                minCaminhao = c;
+            }
+        }
+        
+        // max totalKm()
+        int maxKm = caminhoes[0].getTotalKm();
+        Caminhao maxCaminhao = caminhoes[0];
+        
+        for (Caminhao c : caminhoes) {
+            if (c.getTotalKm() > maxKm) {
+                maxKm = c.getTotalKm();
+                maxCaminhao = c;
+            }
+        }
+        
+        return Double.valueOf(maxKm - minKm);
+    }
+    **/
+
 
     public static ArrayList<Caminhao[]> podaPiorSolucao(ArrayList<Caminhao[]> solucoesAPodar) {
         if (solucoesAPodar.size() < 1) {
@@ -64,7 +69,7 @@ public class BacktrackingRecursivo {
         int maxIndex = -1;
 
         for (int i = solucoesList.size() - 3; i < solucoesList.size(); i++) {
-            Double media = mediaDoDesvioDaMedia(solucoesList.get(i));
+            Double media = desvioPadrao(solucoesList.get(i));
             if (media > max) {
                 max = media;
                 maxIndex = i;
@@ -96,8 +101,8 @@ public class BacktrackingRecursivo {
         if (melhorSolucao[0] == null) {
             melhorSolucao = caminhoes;
         } else {
-            Double mediaAtual = mediaDoDesvioDaMedia(caminhoes);
-            Double mediaMelhor = mediaDoDesvioDaMedia(melhorSolucao);
+            Double mediaAtual = desvioPadrao(caminhoes);
+            Double mediaMelhor = desvioPadrao(melhorSolucao);
             if (mediaAtual < mediaMelhor) {
                 melhorSolucao = caminhoes;
                 System.out.println("Melhor solução: " + melhorSolucao[0].getTotalKm() + ", " + melhorSolucao[1].getTotalKm() + ", " + melhorSolucao[2].getTotalKm());
@@ -126,14 +131,17 @@ public class BacktrackingRecursivo {
     public static Caminhao[] backtracking(ArrayList<Caminhao> caminhoes, ArrayList<Rota> rotas, Caminhao[] solucao) throws CloneNotSupportedException{
         if (rotas.size() == 0) {
             return verificarMelhorSolucao(solucao);
-        }else{
-            empilhaSolucoes(geraSolucoes(solucao, rotas.get(0)));
-            ArrayList<Rota> rotasCopy = new ArrayList<Rota>();
-            for (int i = 1; i < solucao.length; i++) {
-                rotasCopy.add(rotas.get(i));       
-            }
-            backtracking(caminhoes, rotasCopy, solucao);
         }
+        ArrayList<Caminhao[]> solucoes = geraSolucoes(solucao, rotas.get(0));
+        empilhaSolucoes(solucoes);
+        rotas.remove(0);
+        while (!solucoes.isEmpty()) {
+            Caminhao[] s = solucoes.get(0);
+            solucoes.remove(0);
+            backtracking(caminhoes, rotas, s);
+        }
+        return melhorSolucao;
+
 
     }
 
@@ -172,7 +180,7 @@ public class BacktrackingRecursivo {
 
 
         System.out.println("Solução final: " + melhorSolucao[0].getTotalKm() + ", " + melhorSolucao[1].getTotalKm() + ", " + melhorSolucao[2].getTotalKm());
-        System.out.println("Desvio da média: " + mediaDoDesvioDaMedia(melhorSolucao));
+        System.out.println("Desvio padrão: " + desvioPadrao(melhorSolucao));
         System.out.println(rotas.size());
     }
 
