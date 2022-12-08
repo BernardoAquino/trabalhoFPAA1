@@ -1,0 +1,20 @@
+selecionar 3 rotas -> 1 para cada caminhao
+
+--Recursividade
+--
+selecionar proxima rota
+
+para cada caminhao 
+    colocar rota
+    adicionar solucao à pilha
+se existir rota candidata
+    Recursividade(desempilhar)
+senao
+    guardar melhor solucao
+    se pilha.vazia
+
+
+
+        1   2   3
+    523   163 127
+123 123 123    

@@ -101,8 +101,16 @@ public class AppProgDinam {
         System.out.println("-----------------------------------------");
 
         int[] rotas = rotasPreencher.stream().mapToInt(i -> i).toArray();
-        int[][] D = partition(rotas, numeroCaminhoes);
-        System.out.println(reconstructPartition(rotas, D, numeroCaminhoes)); // Listar valor máximo e mínimo
+        int[][] tabela = partition(rotas, numeroCaminhoes);
+
+        // Imprimir tabela
+        for (int i = 0; i < tabela.length; i++) {
+            for (int j = 0; j < tabela[i].length; j++) {
+                System.out.print(tabela[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println(reconstructPartition(rotas, tabela, numeroCaminhoes)); // Listar valor máximo e mínimo
                                                                              // também(Armazenar isso em uma variável)
 
         // Valores máximos e mínimos
